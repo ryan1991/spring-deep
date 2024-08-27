@@ -1,13 +1,19 @@
 package com.kinbo.boot2deep.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kinbo.boot2deep.aspect.UserLog;
 import com.kinbo.boot2deep.dao.UserMapper;
 import com.kinbo.boot2deep.entity.User;
+import com.kinbo.boot2deep.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,10 +26,22 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    @Resource
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+
+
     @RequestMapping("/add")
     @UserLog(module = "用户管理", operate = "添加用户")
-    public int addUser(String name, int age){
-        return userMapper.insertOne(name, age);
+    public int addUser(String name, int age) {
+        int result = userMapper.insertOne(name, age);
+        if (result > 0){
+            User addUser = new User();
+            addUser.setName(name);
+            addUser.setAge(age);
+            kafkaTemplate.send("user_add", JsonUtils.convert2Json(addUser));
+        }
+        return result;
     }
 
 

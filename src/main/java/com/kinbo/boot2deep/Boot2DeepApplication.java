@@ -2,6 +2,7 @@ package com.kinbo.boot2deep;
 
 import com.kinbo.boot2deep.config.ExampleProperties;
 import com.kinbo.boot2deep.config.MyConfig;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -10,6 +11,7 @@ import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
 @EnableConfigurationProperties(ExampleProperties.class)
+@EnableDubbo
 public class Boot2DeepApplication {
 
 

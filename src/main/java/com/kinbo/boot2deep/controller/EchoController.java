@@ -4,6 +4,8 @@ import com.kinbo.boot2deep.config.MyAutoAwareBean;
 import com.kinbo.boot2deep.config.MyAutowired;
 import com.kinbo.boot2deep.config.factory.BaiduClientAdaptor;
 import com.kinbo.boot2deep.config.factory.PddClientAdaptor;
+import com.kinbo.boot2deep.reference.HelloServiceAdapter;
+import com.kinbo.boot2deep.reference.HelloServiceGenericAdapter;
 import com.kinbo.boot2deep.service.EchoService;
 import com.kinbo.boot2deep.service.check.CompositeCheckService;
 import com.kinbo.boot2deep.service.event.ConfigService;
@@ -34,6 +36,18 @@ public class EchoController {
 
     @MyAutowired(value = "song")
     private MyAutoAwareBean myAutoAwareBean;
+
+    @MyAutowired(value = "jiang")
+    public void setMyAutoAwareBean(MyAutoAwareBean myAutoAwareBean){
+        this.myAutoAwareBean = myAutoAwareBean;
+    }
+
+    @Autowired
+    private HelloServiceAdapter helloServiceAdapter;
+
+    @Autowired
+    private HelloServiceGenericAdapter helloServiceGenericAdapter;
+
 
     @RequestMapping("/echo/{message}")
     public String echo(@PathVariable String message) {
@@ -77,6 +91,20 @@ public class EchoController {
         String result = pddClientAdaptor.call(message);
         return result;
     }
+
+    @RequestMapping("/hello/{name}")
+    public String hello(@PathVariable String name) {
+
+        return helloServiceAdapter.sayHello(name);
+    }
+
+    @RequestMapping("/helloGeneric/{name}")
+    public String helloGeneric(@PathVariable String name) {
+
+        return helloServiceGenericAdapter.sayHello(name);
+    }
+
+
 
 
 }

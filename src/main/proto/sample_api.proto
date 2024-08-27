@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+
+option java_package = "com.kinbo.boot2deep.facade.dto";
+
+
+package helloworld;
+
+// The request message containing the user's name.
+message Hello2Request {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message Hello2Reply {
+  string message = 1;
+}

@@ -38,4 +38,11 @@ public class AppConfig {
         return new MyAutowiredAnnotationProcessor();
     }
 
+
+    @Bean
+    public MyAutoAwareBean myAutoAwareBean(){
+        MyAutoAwareBean myAutoAwareBean = new MyAutoAwareBean();
+        myAutoAwareBean.setParam("hello");
+        return myAutoAwareBean;
+    }
 }
