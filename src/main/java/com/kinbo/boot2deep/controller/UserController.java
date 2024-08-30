@@ -1,13 +1,10 @@
 package com.kinbo.boot2deep.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kinbo.boot2deep.aspect.UserLog;
 import com.kinbo.boot2deep.dao.UserMapper;
 import com.kinbo.boot2deep.entity.User;
 import com.kinbo.boot2deep.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @Resource
