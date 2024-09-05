@@ -10,6 +10,7 @@ import com.kinbo.boot2deep.service.EchoService;
 import com.kinbo.boot2deep.service.check.CompositeCheckService;
 import com.kinbo.boot2deep.service.event.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,7 @@ public class EchoController {
     private CompositeCheckService checkService;
 
     @Autowired
+    @Qualifier("myConfigService")
     private ConfigService configService;
 
     @Autowired
