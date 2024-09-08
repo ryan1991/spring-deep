@@ -1,5 +1,8 @@
 package com.kinbo.boot2deep.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.nacos.api.annotation.NacosInjected;
+import com.alibaba.nacos.api.annotation.NacosProperties;
 import com.alibaba.nacos.api.common.Constants;
 import com.alibaba.nacos.api.config.ConfigChangeEvent;
 import com.alibaba.nacos.api.config.ConfigChangeItem;
@@ -11,6 +14,8 @@ import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
 
 import com.alibaba.nacos.client.config.listener.impl.AbstractConfigChangeListener;
+import com.kinbo.boot2deep.config.nacos.UserNacosConfigConverter;
+import com.kinbo.boot2deep.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +43,7 @@ public class ConfigController {
 
     private final static String DATA_ID = "boot2-deep";
 
-    @Autowired
+    @NacosInjected()
     private ConfigService configService;
 
     @NacosValue(value = "${useLocalCache:false}", autoRefreshed = true)
@@ -80,10 +85,16 @@ public class ConfigController {
     }
 
 
-    //参数类型只能String ?
+    //参数类型只能String ? 可以用convert扩展
     @NacosConfigListener(dataId = "boot2-deep", type = ConfigType.PROPERTIES)
     public void onMessage(String config){
         LOGGER.info("config changed:{}" + config);
+    }
+
+    //参数类型只能String ? 可以用convert扩展
+    @NacosConfigListener(dataId = "boot2-deep", type = ConfigType.PROPERTIES, converter = UserNacosConfigConverter.class)
+    public void onMessage2(User userCfg){
+        LOGGER.info("config changed2:{}" + JSON.toJSONString(userCfg));
     }
 
 }
