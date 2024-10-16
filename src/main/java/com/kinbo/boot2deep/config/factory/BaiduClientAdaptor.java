@@ -1,6 +1,5 @@
 package com.kinbo.boot2deep.config.factory;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

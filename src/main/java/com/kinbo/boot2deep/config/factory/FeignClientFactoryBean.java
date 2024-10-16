@@ -15,7 +15,8 @@ import java.util.Arrays;
  * @author songjunbao
  * @date 2024-01-11
  */
-@Component
+//带泛形 不需要表示注解
+//@Component
 public class FeignClientFactoryBean<T> implements FactoryBean<T> {
 
 
