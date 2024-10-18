@@ -240,6 +240,26 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>4.9.2</version>
+                <configuration>
+                    <sourceDirectory>src/main/resources/antlr4/calc</sourceDirectory>
+                    <outputDirectory>src/main/java/com/kinbo/boot2deep/antlr4/calc</outputDirectory>
+                    <arguments>
+                        <argument>-visitor</argument>
+                        <argument>-listener</argument>
+                    </arguments>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
     </build>
